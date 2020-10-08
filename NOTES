@@ -1,0 +1,5 @@
+ffmpeg command to download 5 seconds of a search term 'cat':
+
+`ffmpeg $(youtube-dl -g "ytsearch1:cat" | sed "s/.*/-ss 00:00 -i &/") -t 00:05 -c copy cat.webm`
+
+

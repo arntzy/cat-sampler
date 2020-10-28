@@ -8,19 +8,19 @@ usage()
 {
 cat << EOF
 usage: bash ./getVideos.sh -c 6 -s cat
--c    | --count       (Default 6)     Service to deploy
--s    | --searchTerm  (Required)     Source branch
+-c    | --count       (Default 6)    how many videos to get
+-s    | --searchTerm  (Required)     searches youtube for videos with this term
 -h    | --help                       Brings up this menu
 EOF
 }
 
 ##### Main
 
-count=12
+count=6
 searchTerm=
 
 # clean up any existing videos
-rm -f ../assets/*.mp4
+# rm -f ../assets/*.mp4
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -49,7 +49,9 @@ if [ -z $searchTerm ]; then
     exit
 fi
 
-echo "Downloading $((count / 2)) $searchTerm videos from youtube..."
+echo "Downloading $((count)) $searchTerm videos from youtube..."
+
+dbl_count=$((count * 2))
 
 # run the youtube-dl magic
 video=0
@@ -64,4 +66,4 @@ while read line_video ; do
   ((video=video+1))
   echo $video
   
-done < <(youtube-dl -g "ytsearch${count}:${searchTerm}")
+done < <(youtube-dlc -g "ytsearch${dbl_count}:${searchTerm}")

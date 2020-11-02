@@ -16,10 +16,12 @@ class VideoSample {
     this.playing = false
   }
 
+  // put the video on the canvas
   display () {
     image(this.video, this.x, this.y, this.width, this.height)
   }
 
+  // start/stop the video
   toggleVid () {
     if (this.playing) {
       this.video.stop()
@@ -30,6 +32,7 @@ class VideoSample {
   }
 }
 
+// loads videos from the videoPaths file and assigns them keys
 function loadVideos (paths, keys) {
   paths.pop()
   if (paths.length < keys.length) {
@@ -40,7 +43,6 @@ function loadVideos (paths, keys) {
   }
 
   for (key in keys) {
-    // console.log(keys[key], key)
     const x = key * (windowWidth / keys.length)
     const y = 0
     const width = windowWidth / keys.length
@@ -50,15 +52,16 @@ function loadVideos (paths, keys) {
   }
 }
 
+// hide the videos on setup
 function hideVideos () {
   for (videoSample in videos) {
     videos[videoSample].video.hide()
   }
 }
 
+// play the instrument!
 function keyTyped () {
   if (keys.includes(key)) {
-    // console.log(key)
     for (videoSample in videos) {
       const vid = videos[videoSample]
       if (vid.assignedKey === key) {
@@ -74,7 +77,6 @@ function keyTyped () {
 
 function preload () {
   videoFiles = loadStrings('./assets/videoPaths')
-  // console.log(videoFiles)
 }
 
 function setup () {
